@@ -11,6 +11,15 @@ service ShippingService {
 
   // Created a new method
   rpc GetConsignments(GetRequest) returns (Response) {}
+
+  // seyHello
+  rpc SeyHello(SayHelloRequest) returns (SayHelloResponse) {}
+}
+
+message SayHelloRequest{}
+
+message SayHelloResponse{
+  string text = 1;
 }
 
 message Consignment {
