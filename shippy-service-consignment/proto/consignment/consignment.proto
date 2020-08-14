@@ -12,7 +12,7 @@ service ShippingService {
   rpc GetConsignments(GetRequest) returns (Response) {}
 
   // seyHello
-  rpc SeyHello(SayHelloRequest) returns (SayHelloResponse) {}
+  //  rpc SeyHello(SayHelloRequest) returns (SayHelloResponse) {}
 }
 
 message SayHelloRequest{}

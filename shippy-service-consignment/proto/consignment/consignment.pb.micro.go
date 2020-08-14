@@ -45,8 +45,6 @@ type ShippingService interface {
 	CreateConsignment(ctx context.Context, in *Consignment, opts ...client.CallOption) (*Response, error)
 	// Created a new method
 	GetConsignments(ctx context.Context, in *GetRequest, opts ...client.CallOption) (*Response, error)
-	// seyHello
-	SeyHello(ctx context.Context, in *SayHelloRequest, opts ...client.CallOption) (*SayHelloResponse, error)
 }
 
 type shippingService struct {
@@ -81,31 +79,18 @@ func (c *shippingService) GetConsignments(ctx context.Context, in *GetRequest, o
 	return out, nil
 }
 
-func (c *shippingService) SeyHello(ctx context.Context, in *SayHelloRequest, opts ...client.CallOption) (*SayHelloResponse, error) {
-	req := c.c.NewRequest(c.name, "ShippingService.SeyHello", in)
-	out := new(SayHelloResponse)
-	err := c.c.Call(ctx, req, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // Server API for ShippingService service
 
 type ShippingServiceHandler interface {
 	CreateConsignment(context.Context, *Consignment, *Response) error
 	// Created a new method
 	GetConsignments(context.Context, *GetRequest, *Response) error
-	// seyHello
-	SeyHello(context.Context, *SayHelloRequest, *SayHelloResponse) error
 }
 
 func RegisterShippingServiceHandler(s server.Server, hdlr ShippingServiceHandler, opts ...server.HandlerOption) error {
 	type shippingService interface {
 		CreateConsignment(ctx context.Context, in *Consignment, out *Response) error
 		GetConsignments(ctx context.Context, in *GetRequest, out *Response) error
-		SeyHello(ctx context.Context, in *SayHelloRequest, out *SayHelloResponse) error
 	}
 	type ShippingService struct {
 		shippingService
@@ -124,8 +109,4 @@ func (h *shippingServiceHandler) CreateConsignment(ctx context.Context, in *Cons
 
 func (h *shippingServiceHandler) GetConsignments(ctx context.Context, in *GetRequest, out *Response) error {
 	return h.ShippingServiceHandler.GetConsignments(ctx, in, out)
-}
-
-func (h *shippingServiceHandler) SeyHello(ctx context.Context, in *SayHelloRequest, out *SayHelloResponse) error {
-	return h.ShippingServiceHandler.SeyHello(ctx, in, out)
 }
